@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ESNEXT",
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "removeComments": false,
+    "sourceMap": false,
+    "types": ["node"],
+    "declaration": true
+  },
+  "files": ["index.ts", "utils.ts", "download.ts"]
+}

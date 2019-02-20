@@ -1,0 +1,36 @@
+{
+  "name": "node-fs-watcher",
+  "version": "0.0.1",
+  "description": "node fs watcher using golang watcher package",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json",
+    "install": "node ./download.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akumzy/node-fs-watcher.git"
+  },
+  "keywords": [
+    "fs",
+    "fs-watcher",
+    "file",
+    "watcher",
+    "node",
+    "fs",
+    "event"
+  ],
+  "author": {
+    "name": "Akuma Isaac Akuma",
+    "email": "akumaisaacakuma@gmail.com",
+    "url": "http://akumzy.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Akumzy/node-fs-watcher/issues"
+  },
+  "homepage": "https://github.com/Akumzy/node-fs-watcher#readme",
+  "dependencies": {
+    "ipc-node-go": "^0.1.0"
+  }
+}
