@@ -1,7 +1,7 @@
 # fs-watcher
 
 `fs-watcher` is based on awesome `Go` package [github.com/radovskyb/watcher](https://github.com/radovskyb/watcher) for watching for files or directory changes (recursively or non recursively) without using filesystem events, which allows it to work cross platform consistently.
-`@akumzy/fs-watcher` is made possible with the help of an IPC package for Node and Go [ipc-node-go](https://github.com/Akumzy/ipc-node) and [ipc](https://github.com/Akumzy/ipc)
+`@akumzy/fs-watcher` is made possible with the help of an IPC packages for Node and Go [ipc-node-go](https://github.com/Akumzy/ipc-node) and [fs-watcher-go](https://github.com/Akumzy/fs-watcher-go/)
 
 <!-- ## Why using `Go` package? -->
 <!-- I started a project that has to do with monitoring and syncing user files, which I was developing with [Electron](https://github.com/electron/electron) to develop and since official Node fs.watch module was not that reliable I decided to use [chokidar](https://github.com/paulmillr/chokidar) it was very help at start but as time goes on started having some little challenges eg. no rename event that means you have to keep track of add/addDir and unlink/unlinkDir to determine if  -->
@@ -115,6 +115,16 @@ w.onError(console.log)
 - `removeRecursive(path: string): Promise<boolean>;` unwatch path recursively
 
 - `ignore(paths: string[]): Promise<boolean>;` Ignore path
+
+## FileInfo
+
+- `size: number;` File size in bytes.
+- `modTime: Date;` File Last modification.
+- `path: string;` File absolute path
+- `name: string;` File name with extention if it's not a directory
+- `oldPath?: string;` empty string if event is not `rename` or `move`
+- `isDir: boolean;` File type which will be true it's a directory
+- `mode?: number;` File mode
 
 ## Events
 
