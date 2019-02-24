@@ -1,19 +1,33 @@
+export declare enum Op {
+    Create = 0,
+    Write = 1,
+    Remove = 2,
+    Rename = 3,
+    Chmod = 4,
+    Move = 5
+}
 interface WatcherOption {
-    duration: number;
+    interval: number;
     ignoreHiddenFiles: boolean;
     ignorePaths: string[];
-    filters: ['create', 'remove', 'move', 'write', 'chmod', 'rename'];
+    filters: Op[];
+    binPath?: string;
+    path: string;
+    recursive: true;
+    debug: false;
 }
 interface EventInfo {
-    event: 'create' | 'remove' | 'move' | 'write' | 'chmod' | 'rename';
-    fileInfo: {
-        size: number;
-        modTime: Date;
-        path: string;
-        name: string;
-        oldPath?: string;
-        isDir: boolean;
-    };
+    event: Op;
+    fileInfo: FileInfo;
+}
+interface FileInfo {
+    size: number;
+    modTime: Date;
+    path: string;
+    name: string;
+    oldPath?: string;
+    isDir: boolean;
+    mode?: number;
 }
 declare class Watcher {
     private option;
@@ -22,7 +36,27 @@ declare class Watcher {
     /**
      * start
      */
-    start(cb: (info: EventInfo) => void): Promise<void>;
+    start(cb: (err: any, info: EventInfo | FileInfo[]) => void): void;
+    /**
+     * This return all the watched files per cycle.
+     */
+    getWatchedFiles(): Promise<FileInfo[]>;
+    /**
+     * Listen to any change event you want to.
+     * @param event the name of event you want to listen to.
+     * @param cb the callback function that will handler the event.
+     */
+    onChange(event: 'create' | 'remove' | 'rename' | 'chmod' | 'move' | 'write', cb: (file: FileInfo) => void): this;
+    /**
+     * `Watcher.onAll` method listens for all change events
+     * @param cb is callback function that will be called on new changes
+     */
+    onAll(cb: (event: string, file: FileInfo) => void): this;
+    /**
+     *  Once this event emits it's very likely that the `Watcher` process has been closed.
+     * @param cb
+     */
+    onError(cb: (error: any) => void): this;
     /**
      * stop
      */
@@ -51,6 +85,6 @@ declare class Watcher {
      *  ignore  file or a directory.
      * @param path path to unwatch
      */
-    ignore(path: string): Promise<boolean>;
+    ignore(paths: string[]): Promise<boolean>;
 }
-export = Watcher;
+export default Watcher;

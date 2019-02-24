@@ -1,11 +1,9 @@
-import { join } from 'path'
+import { join, parse } from 'path'
 import { get } from 'https'
-import { createWriteStream, mkdirSync } from 'fs'
+import { createWriteStream, mkdirSync, existsSync, chmodSync } from 'fs'
 
-export const binName = `node-fs-watcher_${process.platform}_${process.arch}${
-  process.platform === 'win32' ? '.exe' : ''
-}`
-export const binPath = join(__dirname, 'bin', binName)
+export const binName = `node-watcher_${process.platform}_${process.arch}${process.platform === 'win32' ? '.exe' : ''}`
+export const binPath = join(__dirname, '.bin', binName)
 
 export function downloadBinary(from: string) {
   return new Promise((resolve, reject) => {
@@ -16,8 +14,12 @@ export function downloadBinary(from: string) {
           .then(resolve)
           .catch(reject)
       }
-      mkdirSync(binPath)
-      res.pipe(createWriteStream(join(binPath, binName))).on('close', resolve)
+      let dir = parse(binPath).dir
+      if (!existsSync(dir)) mkdirSync(parse(binPath).dir)
+      res.pipe(createWriteStream(binPath)).on('close', () => {
+        chmodSync(binPath, '0775')
+        resolve(true)
+      })
     })
     req.on('error', reject)
     req.end()

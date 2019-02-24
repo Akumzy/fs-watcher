@@ -1,11 +1,11 @@
 {
-  "name": "node-fs-watcher",
-  "version": "0.0.1",
+  "name": "@akumzy/fs-watcher",
+  "version": "0.0.6",
   "description": "node fs watcher using golang watcher package",
   "main": "index.js",
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
-    "install": "node ./download.js"
+    "postinstall": "node ./download.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,9 @@
   },
   "homepage": "https://github.com/Akumzy/node-fs-watcher#readme",
   "dependencies": {
-    "ipc-node-go": "^0.1.0"
+    "ipc-node-go": "^0.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^11.9.5"
   }
 }
