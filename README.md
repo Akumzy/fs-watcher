@@ -137,4 +137,4 @@ w.onError(console.log)
         Move
     }
 
-All credits goes to [radovskyb](https://github.com/radovskyb) for creatng this awesome Go package.
+All credits goes to [radovskyb](https://github.com/radovskyb) for creatng this [github.com/radovskyb/watcher](https://github.com/radovskyb/watcher) awesome Go package.
