@@ -60,4 +60,6 @@ typings/
 # next.js build output
 .next
 bin
-.js
+*.js
+!example/index.js
+package-lock.json
