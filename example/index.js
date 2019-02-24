@@ -11,7 +11,7 @@ const w = new Watcher({
 })
 // start watching
 w.start((err, files) => {
-  if (!err) {
+  if (err) {
     console.log(err)
     return
   }
