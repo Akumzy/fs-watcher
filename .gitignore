@@ -63,3 +63,4 @@ bin
 *.js
 !example/index.js
 package-lock.json
+*.d.ts
