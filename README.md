@@ -1,6 +1,6 @@
 # fs-watcher
 
-`fs-watcher` is based on awesome `Go` package [github.com/radovskyb/watcher](https://github.com/radovskyb/watcher) for watching for files or directory changes (recursively or non recursively) without using filesystem events, which allows it to work cross platform consistently.
+`fs-watcher` is based on this awesome `Go` package [github.com/radovskyb/watcher](https://github.com/radovskyb/watcher) for watching for files or directory changes (recursively or non recursively) without using filesystem events, which allows it to work cross platform consistently.
 `@akumzy/fs-watcher` is made possible with the help of an IPC packages for Node and Go [ipc-node-go](https://github.com/Akumzy/ipc-node) and [fs-watcher-go](https://github.com/Akumzy/fs-watcher-go/)
 
 <!-- ## Why using `Go` package? -->
