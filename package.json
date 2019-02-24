@@ -1,6 +1,6 @@
 {
   "name": "@akumzy/fs-watcher",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "node fs watcher using golang watcher package",
   "main": "index.js",
   "scripts": {
