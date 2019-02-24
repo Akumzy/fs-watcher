@@ -35,7 +35,7 @@ w.onChange('write', file => {
 w.onChange('rename', file => {
   console.log(file)
 })
-w.onAll(event, file => {
+w.onAll((event, file) => {
   console.log(event, file)
 })
 w.onError(console.log)
