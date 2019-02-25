@@ -48,7 +48,7 @@ const w = new Watcher({
 })
 // start watching
 w.start((err, files) => {
-  if (!err) {
+  if (err) {
     console.log(err)
     return
   }
@@ -72,7 +72,7 @@ w.onChange('write', file => {
 w.onChange('rename', file => {
   console.log(file)
 })
-w.onAll(event, file => {
+w.onAll((event, file) => {
   console.log(event, file)
 })
 w.onError(console.log)

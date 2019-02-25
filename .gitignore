@@ -61,6 +61,6 @@ typings/
 .next
 bin
 *.js
-!example/index.js
+example
 package-lock.json
 *.d.ts
