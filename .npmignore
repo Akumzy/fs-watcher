@@ -3,3 +3,5 @@
 !*.d.ts
 tsconfig.json
 bin/*
+__test__
+example

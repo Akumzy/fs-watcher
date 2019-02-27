@@ -7,7 +7,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "sourceMap": false,
-    "types": ["node"],
+    "types": ["jest", "node"],
     "declaration": true
   },
   "files": ["index.ts", "utils.ts", "download.ts"]

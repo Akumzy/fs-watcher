@@ -2,7 +2,7 @@ import { join, parse, isAbsolute, sep, resolve } from 'path'
 import { get } from 'https'
 import { createWriteStream, mkdirSync, existsSync, copyFileSync, chmodSync } from 'fs'
 import pkg from './package.json'
-export const binName = `node-watcher_${process.platform === 'win32' ? 'windows' : process.platform}_${process.arch}${
+export const binName = `fs-watcher_${process.platform === 'win32' ? 'windows' : process.platform}_${process.arch}${
   process.platform === 'win32' ? '.exe' : ''
 }`
 export const binPath = join(__dirname, 'bin', binName)

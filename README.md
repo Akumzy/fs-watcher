@@ -92,6 +92,11 @@ w.onError(console.log)
 - `path: string;` path to watch
 - `recursive: true;` if to watch the specified path recursively
 - `debug: false;`If you're ok with logging from child_process
+- `filterHooks: FilterHook[];` Extra filter hooks to be added watcher
+  - `FilterHook`
+    - `reg: string;` reg is simply a plain regular expression pattern
+      eg: `^~$` Good `/^~$/` Bad. `new RegExp('^~$')` Very bad.
+    - `useFullPath: boolean` If to use the file full path or just the file name
 
 ## methods
 

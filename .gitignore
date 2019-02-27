@@ -63,4 +63,5 @@ bin
 *.js
 example
 package-lock.json
+yarn.lock
 *.d.ts

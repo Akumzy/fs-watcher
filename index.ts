@@ -16,15 +16,37 @@ const OpToString: { [key: number]: string } = {
   [Op.Chmod]: 'chmod',
   [Op.Move]: 'move'
 }
-interface WatcherOption {
-  interval: number // The polling interval in milliseconds. default is 100ms
-  ignoreHiddenFiles: boolean // to ignore hidden files
-  ignorePaths: string[] // Array of paths to be igored at startup
-  filters: Op[] // changes to subscrib to.
-  binPath?: string // For any reason you want to keep the binary a different location
-  path: string // path to watch
-  recursive: true // if to watch the specified path recursively
-  debug: false // If you're ok with logging from child_process
+export interface WatcherOption {
+  /**The polling interval in milliseconds. default is 100ms */
+  interval: number
+  /**to ignore hidden files */
+  ignoreHiddenFiles: boolean
+  /**Array of paths to be igored at startup */
+  ignorePaths?: string[]
+  /**changes to subscrib to. */
+  filters?: Op[]
+  /**For any reason you want to keep the binary a different location */
+  binPath?: string
+  /**path to watch */
+  path: string
+  /**If to watch the specified path recursively */
+  recursive: true
+  /**If you're ok with logging from child_process */
+  debug?: false
+  /**Only files that match the regular expression during file listings
+	 will be watched.*/
+  filterHooks?: {
+    /**
+     * reg is simply a plain regular expression pattern
+     * eg:
+     *  - `^~$` Good
+     *  - `/^~$/` Bad.
+     *  - `new RegExp('^~$')` Very bad.
+     */
+    reg: string
+    /**If to use the file full path or just the file name */
+    useFullPath: boolean
+  }[]
 }
 interface EventInfo {
   event: Op
@@ -48,18 +70,27 @@ class Watcher {
     }
   }
   /**
-   * start
+   * `start` states the watcher and return
+   * all watched files and directory or error is any.
+   *
    */
-  public start(cb: (err: any, info: EventInfo | FileInfo[]) => void) {
-    if (!binPath && !this.option.binPath) {
-      cb('Binary file is messing. please make sure the package is installed successfully.', null)
-    }
-    const ipc = this.ipc
-    ipc.init()
-    if (!this.option.interval) this.option.interval = 100
-    ipc.once('app:ready', () => {
-      ipc.sendAndReceive('app:start', this.option, (err, data: FileInfo[]) => {
-        cb(err, data)
+  public start(cb?: (err: any, info: FileInfo[]) => void): Promise<FileInfo[]> {
+    return new Promise((resolve, reject) => {
+      if (!binPath && !this.option.binPath) {
+        let errMsg: string = 'Binary file is messing. please make sure the package is installed successfully'
+        if (typeof cb === 'function') cb(errMsg, null)
+        else reject(errMsg)
+      }
+      this.ipc.init()
+      if (!this.option.interval) this.option.interval = 100
+      this.ipc.once('app:ready', () => {
+        this.ipc.sendAndReceive('app:start', this.option, (err, data: FileInfo[]) => {
+          if (typeof cb === 'function') cb(err, data)
+          else {
+            if (err) reject(err)
+            else resolve(data)
+          }
+        })
       })
     })
   }
