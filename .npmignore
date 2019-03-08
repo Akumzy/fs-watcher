@@ -5,3 +5,7 @@ tsconfig.json
 bin/*
 __test__
 example
+coverage
+.vscode
+jest.config.js 
+yarn.lock

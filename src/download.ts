@@ -1,9 +1,8 @@
-import { downloadBinary, binName, binPath, cachePath, mkdirFallback } from './utils'
+import { downloadBinary, binName, binPath, cachePath, mkdirFallback, binVersion } from './utils'
 import { existsSync, copyFileSync, chmodSync } from 'fs'
 import { join, parse } from 'path'
-import pkg from './package.json'
 ;(async () => {
-  const from = `https://github.com/Akumzy/fs-watcher/releases/download/${pkg.binVersion}/${binName}`
+  const from = `https://github.com/Akumzy/fs-watcher/releases/download/${binVersion}/${binName}`
   let oldFile = join(cachePath, binName)
   if (existsSync(oldFile)) {
     mkdirFallback(parse(binPath).dir)

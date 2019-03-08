@@ -4,11 +4,12 @@
     "module": "commonjs",
     "noImplicitAny": true,
     "removeComments": false,
-    "resolveJsonModule": true,
+    "resolveJsonModule": false,
     "esModuleInterop": true,
     "sourceMap": false,
-    "types": ["jest", "node"],
-    "declaration": true
+    "declaration": true,
+    "outDir": "dist",
+    "types": ["jest", "node"]
   },
-  "files": ["index.ts", "utils.ts", "download.ts"]
+  "include": ["src/**/*"]
 }

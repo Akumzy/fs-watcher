@@ -1,12 +1,14 @@
-import { join, parse, isAbsolute, sep, resolve } from 'path'
 import { get } from 'https'
+import { join, parse, isAbsolute, sep, resolve } from 'path'
 import { createWriteStream, mkdirSync, existsSync, copyFileSync, chmodSync } from 'fs'
-import pkg from './package.json'
+
+export const binVersion = 'v0.0.3'
 export const binName = `fs-watcher_${process.platform === 'win32' ? 'windows' : process.platform}_${process.arch}${
   process.platform === 'win32' ? '.exe' : ''
 }`
-export const binPath = join(__dirname, 'bin', binName)
-export const cachePath = join(process.env.HOME, '.cache', 'node-watcher', pkg.binVersion)
+
+export const binPath = join(__dirname, '../bin', binName)
+export const cachePath = join(process.env.HOME, '.cache', 'node-watcher', binVersion)
 export function downloadBinary(from: string) {
   return new Promise((resolve, reject) => {
     const req = get(from)

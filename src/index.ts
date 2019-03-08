@@ -30,9 +30,9 @@ export interface WatcherOption {
   /**path to watch */
   path: string
   /**If to watch the specified path recursively */
-  recursive: true
+  recursive: boolean
   /**If you're ok with logging from child_process */
-  debug?: false
+  debug?: boolean
   /**Only files that match the regular expression during file listings
 	 will be watched.*/
   filterHooks?: {
@@ -63,8 +63,9 @@ interface FileInfo {
 }
 
 class Watcher {
-  private ipc = new IPC(binPath || this.option.binPath)
+  private ipc: IPC
   constructor(private option: WatcherOption) {
+    this.ipc = new IPC(option.binPath || binPath)
     if (this.option.debug) {
       this.ipc.on('log', console.log)
     }
