@@ -52,7 +52,7 @@ interface EventInfo {
   event: Op
   fileInfo: FileInfo
 }
-interface FileInfo {
+export interface FileInfo {
   size: number
   modTime: Date
   path: string

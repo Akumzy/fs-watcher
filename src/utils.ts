@@ -2,7 +2,7 @@ import { get } from 'https'
 import { join, parse, isAbsolute, sep, resolve } from 'path'
 import { createWriteStream, mkdirSync, existsSync, copyFileSync, chmodSync } from 'fs'
 
-export const binVersion = 'v0.0.3'
+export const binVersion = 'v0.0.4'
 export const binName = `fs-watcher_${process.platform === 'win32' ? 'windows' : process.platform}_${process.arch}${
   process.platform === 'win32' ? '.exe' : ''
 }`

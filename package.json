@@ -1,7 +1,7 @@
 {
   "name": "@akumzy/fs-watcher",
-  "version": "0.2.7",
-  "description": "node fs watcher using golang watcher package",
+  "version": "0.2.8",
+  "description": "Nodejs fs watcher with recursive watch support.",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/Akumzy/node-fs-watcher#readme",
   "dependencies": {
-    "ipc-node-go": "^0.1.6"
+    "ipc-node-go": "^0.1.8"
   },
   "devDependencies": {
     "@types/jest": "^24.0.9",
