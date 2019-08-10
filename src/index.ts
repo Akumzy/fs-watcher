@@ -6,7 +6,7 @@ export enum Op {
   Remove,
   Rename,
   Chmod,
-  Move
+  Move,
 }
 const OpToString: { [key: number]: string } = {
   [Op.Create]: 'create',
@@ -14,16 +14,16 @@ const OpToString: { [key: number]: string } = {
   [Op.Remove]: 'remove',
   [Op.Rename]: 'rename',
   [Op.Chmod]: 'chmod',
-  [Op.Move]: 'move'
+  [Op.Move]: 'move',
 }
 export interface WatcherOption {
   /**The polling interval in milliseconds. default is 100ms */
   interval: number
   /**to ignore hidden files */
   ignoreHiddenFiles: boolean
-  /**Array of paths to be igored at startup */
+  /**Array of paths to be ignored at startup */
   ignorePaths?: string[]
-  /**changes to subscrib to. */
+  /**changes to subscribe to. */
   filters?: Op[]
   /**For any reason you want to keep the binary a different location */
   binPath?: string
@@ -36,13 +36,6 @@ export interface WatcherOption {
   /**Only files that match the regular expression during file listings
 	 will be watched.*/
   filterHooks?: {
-    /**
-     * reg is simply a plain regular expression pattern
-     * eg:
-     *  - `^~$` Good
-     *  - `/^~$/` Bad.
-     *  - `new RegExp('^~$')` Very bad.
-     */
     reg: string
     /**If to use the file full path or just the file name */
     useFullPath: boolean
@@ -78,20 +71,25 @@ class Watcher {
   public start(cb?: (err: any, info: FileInfo[]) => void): Promise<FileInfo[]> {
     return new Promise((resolve, reject) => {
       if (!binPath && !this.option.binPath) {
-        let errMsg: string = 'Binary file is messing. please make sure the package is installed successfully'
+        let errMsg: string =
+          'Binary file is messing. please make sure the package is installed successfully'
         if (typeof cb === 'function') cb(errMsg, null)
         else reject(errMsg)
       }
       this.ipc.init()
       if (!this.option.interval) this.option.interval = 100
       this.ipc.once('app:ready', () => {
-        this.ipc.sendAndReceive('app:start', this.option, (err, data: FileInfo[]) => {
-          if (typeof cb === 'function') cb(err, data)
-          else {
-            if (err) reject(err)
-            else resolve(data)
-          }
-        })
+        this.ipc.sendAndReceive(
+          'app:start',
+          this.option,
+          (err, data: FileInfo[]) => {
+            if (typeof cb === 'function') cb(err, data)
+            else {
+              if (err) reject(err)
+              else resolve(data)
+            }
+          },
+        )
       })
     })
   }
@@ -100,10 +98,14 @@ class Watcher {
    */
   public getWatchedFiles(): Promise<FileInfo[]> {
     return new Promise((resolve, reject) => {
-      this.ipc.sendAndReceive('app:getWatchedFiles', null, (error, data: FileInfo[]) => {
-        if (error) reject(error)
-        else resolve(data)
-      })
+      this.ipc.sendAndReceive(
+        'app:getWatchedFiles',
+        null,
+        (error, data: FileInfo[]) => {
+          if (error) reject(error)
+          else resolve(data)
+        },
+      )
     })
   }
   /**
@@ -111,7 +113,10 @@ class Watcher {
    * @param event the name of event you want to listen to.
    * @param cb the callback function that will handler the event.
    */
-  public onChange(event: 'create' | 'remove' | 'rename' | 'chmod' | 'move' | 'write', cb: (file: FileInfo) => void) {
+  public onChange(
+    event: 'create' | 'remove' | 'rename' | 'chmod' | 'move' | 'write',
+    cb: (file: FileInfo) => void,
+  ) {
     this.ipc.on('app:change', (info: EventInfo) => {
       if (event === OpToString[info.event]) {
         cb(info.fileInfo)
@@ -150,10 +155,14 @@ class Watcher {
    */
   public addRecursive(path: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this.ipc.sendAndReceive('app:addRecursive', path, (error, data: boolean) => {
-        if (error) reject(error)
-        else resolve(data)
-      })
+      this.ipc.sendAndReceive(
+        'app:addRecursive',
+        path,
+        (error, data: boolean) => {
+          if (error) reject(error)
+          else resolve(data)
+        },
+      )
     })
   }
   /**
@@ -186,10 +195,14 @@ class Watcher {
    */
   public removeRecursive(path: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this.ipc.sendAndReceive('app:removeRecursive', path, (error, data: boolean) => {
-        if (error) reject(error)
-        else resolve(data)
-      })
+      this.ipc.sendAndReceive(
+        'app:removeRecursive',
+        path,
+        (error, data: boolean) => {
+          if (error) reject(error)
+          else resolve(data)
+        },
+      )
     })
   }
 

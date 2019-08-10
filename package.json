@@ -1,12 +1,12 @@
 {
   "name": "@akumzy/fs-watcher",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Nodejs fs watcher with recursive watch support.",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
-    "postinstall": "node ./dist/download.js",
     "test": "jest",
+    "postinstall": "node ./dist/download.js",
     "testWithCoverage": "jest --coverage"
   },
   "repository": {
@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/Akumzy/node-fs-watcher#readme",
   "dependencies": {
-    "ipc-node-go": "^0.1.8"
+    "ipc-node-go": "^0.2.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.9",
