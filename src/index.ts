@@ -40,6 +40,8 @@ export interface WatcherOption {
     /**If to use the file full path or just the file name */
     useFullPath: boolean
   }[]
+  /**Hash bash on the file absolute path */
+  id?: string
 }
 interface EventInfo {
   event: Op
@@ -128,9 +130,9 @@ class Watcher {
    * `Watcher.onAll` method listens for all change events
    * @param cb is callback function that will be called on new changes
    */
-  public onAll(cb: (event: string, file: FileInfo) => void) {
+  public onAll(cb: (event: 'create' | 'remove' | 'rename' | 'chmod' | 'move' | 'write', file: FileInfo) => void) {
     this.ipc.on('app:change', (info: EventInfo) => {
-      cb(OpToString[info.event], info.fileInfo)
+      cb(OpToString[info.event] as 'create' | 'remove' | 'rename' | 'chmod' | 'move' | 'write', info.fileInfo)
     })
     return this
   }

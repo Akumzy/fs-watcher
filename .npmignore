@@ -9,3 +9,4 @@ coverage
 .vscode
 jest.config.js 
 yarn.lock
+package-lock.json
