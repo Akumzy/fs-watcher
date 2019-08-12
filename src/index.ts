@@ -8,7 +8,7 @@ export enum Op {
   Chmod,
   Move,
 }
-const OpToString: { [key: number]: string } = {
+export const OpToString: { [key: number]: string } = {
   [Op.Create]: 'create',
   [Op.Write]: 'write',
   [Op.Remove]: 'remove',
@@ -54,7 +54,8 @@ export interface FileInfo {
   isDir: boolean
   mode?: number
   /**Hash bash on the file absolute path */
-  id?: string
+  id: string
+  oldId?: string
 }
 
 class Watcher {
