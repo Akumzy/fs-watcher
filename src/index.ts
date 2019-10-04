@@ -6,7 +6,7 @@ export enum Op {
   Remove,
   Rename,
   Chmod,
-  Move,
+  Move
 }
 export const OpToString: { [key: number]: string } = {
   [Op.Create]: 'create',
@@ -14,7 +14,7 @@ export const OpToString: { [key: number]: string } = {
   [Op.Remove]: 'remove',
   [Op.Rename]: 'rename',
   [Op.Chmod]: 'chmod',
-  [Op.Move]: 'move',
+  [Op.Move]: 'move'
 }
 export interface WatcherOption {
   /**The polling interval in milliseconds. default is 100ms */
@@ -80,6 +80,9 @@ class Watcher {
       }
       this.ipc.init()
       if (!this.option.interval) this.option.interval = 100
+      if (!this.option?.filters?.length) {
+        this.option.filters = [Op.Chmod, Op.Create, Op.Move, Op.Remove, Op.Rename, Op.Write]
+      }
       this.ipc.once('app:ready', () => {
         this.ipc.sendAndReceive('app:start', this.option, (err, data: FileInfo[]) => {
           if (typeof cb === 'function') cb(err, data)
