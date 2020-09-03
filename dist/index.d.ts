@@ -20,8 +20,8 @@ export interface WatcherOption {
     filters?: Op[];
     /**For any reason you want to keep the binary a different location */
     binPath?: string;
-    /**path to watch */
-    path: string;
+    /**paths to watch */
+    path: string | string[];
     /**If to watch the specified path recursively */
     recursive: boolean;
     /**If you're ok with logging from child_process */

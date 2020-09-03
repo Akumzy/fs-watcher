@@ -3,4 +3,4 @@ export declare const binName: string;
 export declare const binPath: string;
 export declare const cachePath: string;
 export declare function downloadBinary(from: string): Promise<unknown>;
-export declare function mkdirFallback(targetDir: string, isRelativeToScript?: boolean): string | void;
+export declare function mkdirFallback(targetDir: string, isRelativeToScript?: boolean): string;

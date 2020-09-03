@@ -27,8 +27,8 @@ export interface WatcherOption {
   filters?: Op[]
   /**For any reason you want to keep the binary a different location */
   binPath?: string
-  /**path to watch */
-  path: string
+  /**paths to watch */
+  path: string | string[]
   /**If to watch the specified path recursively */
   recursive: boolean
   /**If you're ok with logging from child_process */
@@ -82,6 +82,9 @@ class Watcher {
       if (!this.option.interval) this.option.interval = 100
       if (!this.option?.filters?.length) {
         this.option.filters = [Op.Chmod, Op.Create, Op.Move, Op.Remove, Op.Rename, Op.Write]
+      }
+      if (!Array.isArray(this.option.path)) {
+        this.option.path = [this.option.path]
       }
       this.ipc.once('app:ready', () => {
         this.ipc.sendAndReceive('app:start', this.option, (err, data: FileInfo[]) => {

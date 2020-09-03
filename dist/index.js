@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.OpToString = exports.Op = void 0;
 const utils_1 = require("./utils");
 const IPC = require("ipc-node-go");
 var Op;
@@ -47,6 +48,9 @@ class Watcher {
                 this.option.interval = 100;
             if (!((_b = (_a = this.option) === null || _a === void 0 ? void 0 : _a.filters) === null || _b === void 0 ? void 0 : _b.length)) {
                 this.option.filters = [Op.Chmod, Op.Create, Op.Move, Op.Remove, Op.Rename, Op.Write];
+            }
+            if (!Array.isArray(this.option.path)) {
+                this.option.path = [this.option.path];
             }
             this.ipc.once('app:ready', () => {
                 this.ipc.sendAndReceive('app:start', this.option, (err, data) => {

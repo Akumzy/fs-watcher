@@ -6,9 +6,11 @@ export const binVersion = 'v0.0.4'
 export const binName = `fs-watcher_${process.platform === 'win32' ? 'windows' : process.platform}_${process.arch}${
   process.platform === 'win32' ? '.exe' : ''
 }`
-
+function getUserHome() {
+  return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+}
 export const binPath = join(__dirname, '../bin', binName)
-export const cachePath = join(process.env.HOME, '.cache', 'node-watcher', binVersion)
+export const cachePath = join(getUserHome(), '.cache', 'node-watcher', binVersion)
 export function downloadBinary(from: string) {
   return new Promise((resolve, reject) => {
     const req = get(from)

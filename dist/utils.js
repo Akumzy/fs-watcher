@@ -1,12 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.mkdirFallback = exports.downloadBinary = exports.cachePath = exports.binPath = exports.binName = exports.binVersion = void 0;
 const https_1 = require("https");
 const path_1 = require("path");
 const fs_1 = require("fs");
 exports.binVersion = 'v0.0.4';
 exports.binName = `fs-watcher_${process.platform === 'win32' ? 'windows' : process.platform}_${process.arch}${process.platform === 'win32' ? '.exe' : ''}`;
+function getUserHome() {
+    return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+}
 exports.binPath = path_1.join(__dirname, '../bin', exports.binName);
-exports.cachePath = path_1.join(process.env.HOME, '.cache', 'node-watcher', exports.binVersion);
+exports.cachePath = path_1.join(getUserHome(), '.cache', 'node-watcher', exports.binVersion);
 function downloadBinary(from) {
     return new Promise((resolve, reject) => {
         const req = https_1.get(from);
